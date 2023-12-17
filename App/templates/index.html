@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surabaya Maps</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Select Start and End Locations</h1>
+        <form action="/search" method="post">
+            <div class="form-group">
+                <label for="start_location">Start Location:</label>
+                <select class="form-control" name="start_location" id="start_location">
+                    {% for kecamatan_name in kecamatan %}
+                        <option value="{{ kecamatan_name }}">{{ kecamatan_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="end_location">End Location:</label>
+                <select class="form-control" name="end_location" id="end_location">
+                    {% for kecamatan_name in kecamatan %}
+                        <option value="{{ kecamatan_name }}">{{ kecamatan_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fuel_price">Fuel Price (per liter):</label>
+                <input class="form-control" type="number" name="fuel_price" id="fuel_price" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="fuel_efficiency">Fuel Efficiency (km per liter):</label>
+                <input class="form-control" type="number" name="fuel_efficiency" id="fuel_efficiency" step="0.01" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+</body>
+</html>

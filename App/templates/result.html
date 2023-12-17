@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="mb-4">Search Result</h1>
+        {% if path %}
+            <div class="alert alert-success pt-4">
+                <p>Total Distance: {{ total_distance }} km</p>
+                <p>Total Cost: Rp{{ total_cost }}</p>
+                <p>Total Fuel Used: {{ total_fuel_used }} L</p>
+            </div>
+            <p>Shortest path from {{ start }} to {{ end }}:</p>
+            <ul class="list-group">
+                {% for location in path %}
+                    <li class="list-group-item">{{ location }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="alert alert-danger pt-4">
+                <p>No path found between {{ start }} and {{ end }}.</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
