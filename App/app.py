@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request
 from astar import astar
 from kecamatan import kecamatan
+from bus import bus_transportation
 
 app = Flask(__name__)
 
@@ -20,14 +21,21 @@ def search():
     path, total_distance = result
 
     if isinstance(path, list):
-        # Menghitung total biaya dan bensin
         total_cost = (total_distance / fuel_efficiency) * fuel_price
         total_fuel_used = total_distance / fuel_efficiency
+
+        bus_info = {}
+        for location in path:
+            if location in bus_transportation:
+                bus_info[location] = {
+                    'transport': bus_transportation[location]['transport'],
+                    'routes': bus_transportation[location]['routes']
+                }
     else:
-        # Setel nilai default jika tidak ada jalur yang ditemukan
         total_distance = 0
         total_cost = 0
         total_fuel_used = 0
+        bus_info = {}
 
     return render_template(
         'result.html',
@@ -37,7 +45,8 @@ def search():
         graph=kecamatan,
         total_distance=total_distance,
         total_cost=total_cost,
-        total_fuel_used=total_fuel_used
+        total_fuel_used=total_fuel_used,
+        bus_info=bus_info 
     )
 
 if __name__ == '__main__':

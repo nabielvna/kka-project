@@ -15,6 +15,9 @@
                 <p>Total Distance: {{ total_distance }} km</p>
                 <p>Total Cost: Rp{{ total_cost }}</p>
                 <p>Total Fuel Used: {{ total_fuel_used }} L</p>
+                {% if gojek_cost %}
+                    <p>Estimated Gojek Cost: Rp{{ gojek_cost }}</p>
+                {% endif %}
             </div>
             <p>Shortest path from {{ start }} to {{ end }}:</p>
             <ul class="list-group">
@@ -22,6 +25,29 @@
                     <li class="list-group-item">{{ location }}</li>
                 {% endfor %}
             </ul>
+            {% set bus_info_displayed = false %}
+            <div class="mt-4">
+                <h3>Bus Information</h3>
+            </div>
+            {% for location in path %}
+                {% if location in bus_info and not bus_info_displayed %}
+                    {% set bus_info_displayed = true %}
+                {% endif %}
+                {% if location in bus_info %}
+                    <div class="mt-2">
+                        <ul class="list-group">
+                            <li class="list-group-item">{{ location }}</li>
+                            <li class="list-group-item">Routes:
+                                <ul>
+                                    {% for route, cost in bus_info[location]['routes'].items() %}
+                                        <li>{{ route }} (Cost: Rp{{ cost }})</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endfor %}
         {% else %}
             <div class="alert alert-danger pt-4">
                 <p>No path found between {{ start }} and {{ end }}.</p>
