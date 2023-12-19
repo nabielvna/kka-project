@@ -1,3 +1,4 @@
+# Data kecamatan
 kecamatan = {
     'Asemrowo': {'neighbors': {'Benowo': 8, 'Tandes': 3, 'Sukomanunggal': 2, 'Bubutan': 4, 'Krembangan': 5}, 'coordinates': (11, 14)},
     'Benowo': {'neighbors': {'Pakal': 5, 'Sambikerep': 5, 'Tandes': 3, 'Asemrowo': 8}, 'coordinates': (7, 15)},
